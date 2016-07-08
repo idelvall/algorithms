@@ -40,7 +40,7 @@ public class Heap<E> {
 
     public void insert(E item) {
         array.add(item);
-        heapifyUp(array.size() - 1);
+        heapifyUp();
     }
 
     public E peek() {
@@ -58,46 +58,54 @@ public class Heap<E> {
         } else {
             E ret = array.get(0);
             array.set(0, array.remove(array.size() - 1));
-            heapifyDown(0);
+            heapifyDown();
             return ret;
         }
     }
 
-    private void heapifyDown(int i) {
-        E node = array.get(i);
-        int leftChildIndex = getLeftChild(i);
-        if (leftChildIndex < array.size() - 1) {
-            E lChild = array.get(leftChildIndex);
-            E rChild = array.get(leftChildIndex + 1);
-            if (compare(lChild, rChild) < 0) {
+    private void heapifyDown() {
+        int i = 0;
+        while (true) {
+            E node = array.get(i);
+            int leftChildIndex = getLeftChild(i);
+            if (leftChildIndex < array.size() - 1) {
+                E lChild = array.get(leftChildIndex);
+                E rChild = array.get(leftChildIndex + 1);
+                if (compare(lChild, rChild) < 0) {
+                    if (compare(lChild, node) < 0) {
+                        Utils.swap(array, i, leftChildIndex);
+                        i = leftChildIndex;
+                        continue;
+                    }
+                } else {
+                    if (compare(rChild, node) < 0) {
+                        Utils.swap(array, i, leftChildIndex + 1);
+                        i = leftChildIndex + 1;
+                        continue;
+                    }
+                }
+            } else if (leftChildIndex == array.size() - 1) {
+                E lChild = array.get(leftChildIndex);
                 if (compare(lChild, node) < 0) {
                     Utils.swap(array, i, leftChildIndex);
-                    heapifyDown(leftChildIndex);
-                }
-            } else {
-                if (compare(rChild, node) < 0) {
-                    Utils.swap(array, i, leftChildIndex + 1);
-                    heapifyDown(leftChildIndex + 1);
                 }
             }
-        } else if (leftChildIndex == array.size() - 1) {
-            E lChild = array.get(leftChildIndex);
-            if (compare(lChild, node) < 0) {
-                Utils.swap(array, i, leftChildIndex);
-            }
+            break;
         }
     }
 
-    private void heapifyUp(int i) {
-        if (i == 0) {
-            return;
-        }
-        int parentIndex = getParent(i);
-        E node = array.get(i);
-        E parent = array.get(parentIndex);
-        if (compare(node, parent) < 0) {
-            Utils.swap(array, i, parentIndex);
-            heapifyUp(parentIndex);
+    private void heapifyUp() {
+        int i = array.size() - 1;
+        while (i > 0) {
+            int parentIndex = getParent(i);
+            E node = array.get(i);
+            E parent = array.get(parentIndex);
+            if (compare(node, parent) < 0) {
+                Utils.swap(array, i, parentIndex);
+                i = parentIndex;
+            } else {
+                break;
+            }
         }
     }
 
@@ -112,11 +120,11 @@ public class Heap<E> {
         return c1.compareTo(e2);
     }
 
-    private static int getParent(int n) {
+    public static int getParent(int n) {
         return (n - 1) / 2;
     }
 
-    private static int getLeftChild(int n) {
+    public static int getLeftChild(int n) {
         return 2 * n + 1;
     }
 
