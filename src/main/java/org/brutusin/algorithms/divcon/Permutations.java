@@ -13,22 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brutusin.algorithms.sorting;
+package org.brutusin.algorithms.divcon;
 
-import java.util.Arrays;
+import static org.brutusin.algorithms.sorting.MergeSort.merge;
 
-public class MergeSort {
+/**
+ * Counts the number of permutations in an array in O(N*logN). Based in merge
+ * sort
+ *
+ * @author Ignacio del Valle Alles idelvall@brutusin.org
+ */
+public class Permutations {
 
-    public static void sort(final int[] array) {
+    public static int countPermutations(int[] array) {
         int[] a = array;
         int[] aux = new int[array.length];
-
+        int ret = 0;
         for (int width = 2; width < 2 * array.length; width = width * 2) {
             for (int i = 0; i < array.length; i = i + width) {
                 int start = i;
                 int med = Math.min(start + width / 2, array.length);
                 int end = Math.min(start + width, array.length);
-                merge(a, start, med, end, aux);
+                ret += merge(a, start, med, end, aux);
             }
             int[] temp = a;
             a = aux;
@@ -39,21 +45,25 @@ public class MergeSort {
                 array[i] = a[i];
             }
         }
+        return ret;
     }
 
     /**
      * Merges the already sorted array[start,med-1) and array[med,end) and saves
-     * the sorted result in aux[start...end).
+     * the sorted result in aux[start...end). Also returns the number of
+     * permutations found
      *
      * @param array
      * @param start
      * @param med
      * @param end
      * @param aux
+     * @return
      */
-    public static void merge(int[] array, int start, int med, int end, int[] aux) {
+    public static int merge(int[] array, int start, int med, int end, int[] aux) {
         int i = start;
         int j = med;
+        int ret = 0;
         for (int k = start; k < end; k++) {
             if (j == end || array[i] < array[j] && i < med) {
                 aux[k] = array[i];
@@ -61,13 +71,13 @@ public class MergeSort {
             } else {
                 aux[k] = array[j];
                 j++;
+                ret += med - i;
             }
         }
+        return ret;
     }
 
     public static void main(String[] args) {
-        int[] array = new int[]{2, 1, 0};
-        sort(array);
-        System.out.println(Arrays.toString(array));
+        System.out.println(countPermutations(new int[]{3, 2, 1, 0}));
     }
 }
