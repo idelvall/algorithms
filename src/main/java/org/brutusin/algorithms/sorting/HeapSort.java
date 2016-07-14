@@ -16,7 +16,7 @@
 package org.brutusin.algorithms.sorting;
 
 import java.util.Arrays;
-import org.brutusin.algorithms.Utils;
+import org.brutusin.algorithms.utils.Utils;
 import org.brutusin.datastructures.Heap;
 import static org.brutusin.datastructures.Heap.getParent;
 

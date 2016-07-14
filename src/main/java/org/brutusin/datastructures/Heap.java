@@ -17,7 +17,7 @@ package org.brutusin.datastructures;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import org.brutusin.algorithms.Utils;
+import org.brutusin.algorithms.utils.Utils;
 
 /**
  *

@@ -16,7 +16,7 @@
 package org.brutusin.algorithms.sorting;
 
 import java.util.Arrays;
-import org.brutusin.algorithms.Utils;
+import org.brutusin.algorithms.utils.Utils;
 
 /**
  * Swaps elements to the right until there are no more swaps

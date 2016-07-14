@@ -13,39 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brutusin.algorithms.sorting;
-
-import org.brutusin.algorithms.utils.Utils;
+package org.brutusin.algorithms.utils;
 
 /**
  *
  * @author Ignacio del Valle Alles idelvall@brutusin.org
  */
-public class QuickSort {
+public class Point {
 
-    public static void sort(int[] array) {
-        if (array == null) {
-            return;
-        }
+    private double x;
+    private double y;
 
-        sort(array, 0, array.length - 1);
+    public Point() {
     }
 
-    /**
-     * Recursive range selection
-     *
-     * @param k
-     * @param array
-     * @param start inclusive
-     * @param end inclusive
-     * @return
-     */
-    private static void sort(int[] array, int start, int end) {
-        if (start >= end) {
-            return;
-        }
-        int p = Utils.randomPartition(array, start, end);
-        sort(array, p + 1, end);
-        sort(array, start, p - 1);
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double distanceTo(Point p) {
+        return Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + "," + y + ")";
     }
 }

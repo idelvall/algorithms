@@ -16,7 +16,7 @@
 package org.brutusin.algorithms.sorting;
 
 import java.util.Arrays;
-import org.brutusin.algorithms.Utils;
+import org.brutusin.algorithms.utils.Utils;
 
 /**
  * In each outer iteration selection sort finds the smallest of the remaining

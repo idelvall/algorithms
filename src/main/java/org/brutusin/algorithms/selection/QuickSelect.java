@@ -16,7 +16,7 @@
 package org.brutusin.algorithms.selection;
 
 import java.util.Random;
-import org.brutusin.algorithms.Utils;
+import org.brutusin.algorithms.utils.Utils;
 
 /**
  *
