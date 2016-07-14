@@ -35,7 +35,8 @@ public class NearestPoints {
     public static Set<Pair<Point, Point>> getClosestPairs(Point[] points) {
         Integer[] xOrder = sortByX(points);
         Integer[] yOrder = sortByY(points);
-        Set<Pair<Integer, Integer>> pairIds = getClosestPairs(points, 0, points.length - 1, xOrder, yOrder);
+        int[] aux = new int[points.length];
+        Set<Pair<Integer, Integer>> pairIds = getClosestPairs(points, 0, points.length - 1, xOrder, yOrder, aux);
         if (pairIds == null) {
             return null;
         }
@@ -46,7 +47,7 @@ public class NearestPoints {
         return ret;
     }
 
-    private static Set<Pair<Integer, Integer>> getClosestPairs(Point[] points, int start, int end, Integer[] xOrder, Integer[] yOrder) {
+    private static Set<Pair<Integer, Integer>> getClosestPairs(Point[] points, int start, int end, Integer[] xOrder, Integer[] yOrder, int[] aux) {
         if (end <= start) {
             return null;
         }
@@ -56,16 +57,15 @@ public class NearestPoints {
             return ret;
         } else {
             int med = (end + start) / 2;
-            Set<Pair<Integer, Integer>> leftClosestPairs = getClosestPairs(points, start, med, xOrder, yOrder);
-            Set<Pair<Integer, Integer>> rightClosestPairs = getClosestPairs(points, med + 1, end, xOrder, yOrder);
+            Set<Pair<Integer, Integer>> leftClosestPairs = getClosestPairs(points, start, med, xOrder, yOrder, aux);
+            Set<Pair<Integer, Integer>> rightClosestPairs = getClosestPairs(points, med + 1, end, xOrder, yOrder, aux);
             Set<Pair<Integer, Integer>> closest = getClosest(points, leftClosestPairs, rightClosestPairs);
-            Set<Pair<Integer, Integer>> splitClosest = getSplitClosestPairs(points, med, xOrder, yOrder, getDistance(points, closest));
+            Set<Pair<Integer, Integer>> splitClosest = getSplitClosestPairs(points, med, xOrder, yOrder, getDistance(points, closest), aux);
             return getClosest(points, closest, splitClosest);
         }
     }
 
-    private static Set<Pair<Integer, Integer>> getSplitClosestPairs(Point[] points, int med, Integer[] xOrder, Integer[] yOrder, double delta) {
-        boolean[] candidates = new boolean[points.length];
+    private static Set<Pair<Integer, Integer>> getSplitClosestPairs(Point[] points, final int med, Integer[] xOrder, Integer[] yOrder, double delta, int[] aux) {
         Point mPoint = points[xOrder[med]];
         int counter = 0;
         for (int i = med; i >= 0; i--) {
@@ -74,7 +74,7 @@ public class NearestPoints {
             if (Math.abs(p.getX() - mPoint.getX()) > delta + EPS) {
                 break;
             }
-            candidates[pointId] = true;
+            aux[pointId] = med;
             counter++;
         }
         for (int i = med + 1; i < points.length; i++) {
@@ -83,14 +83,14 @@ public class NearestPoints {
             if (Math.abs(p.getX() - mPoint.getX()) > delta + EPS) {
                 break;
             }
-            candidates[pointId] = true;
+            aux[pointId] = med;
             counter++;
         }
         int[] sortedByYCandidateIds = new int[counter];
         int j = 0;
         for (int i = 0; i < yOrder.length; i++) {
             int pointId = yOrder[i];
-            if (candidates[pointId]) {
+            if (aux[pointId] == med) {
                 sortedByYCandidateIds[j++] = pointId;
             }
         }
