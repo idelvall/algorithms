@@ -15,17 +15,14 @@
  */
 package org.brutusin.algorithms.divcon;
 
-import static org.brutusin.algorithms.sorting.MergeSort.merge;
-
 /**
- * Counts the number of permutations in an array in O(N*logN). Based in merge
- * sort
+ * Counts the number of inversions in an array in O(N*logN). Based in merge sort
  *
  * @author Ignacio del Valle Alles idelvall@brutusin.org
  */
-public class Permutations {
+public class Inversions {
 
-    public static int countPermutations(int[] array) {
+    public static int countInversions(int[] array) {
         int[] a = array;
         int[] aux = new int[array.length];
         int ret = 0;
@@ -78,6 +75,6 @@ public class Permutations {
     }
 
     public static void main(String[] args) {
-        System.out.println(countPermutations(new int[]{3, 2, 1, 0}));
+        System.out.println(countInversions(new int[]{3, 2, 1, 0}));
     }
 }
