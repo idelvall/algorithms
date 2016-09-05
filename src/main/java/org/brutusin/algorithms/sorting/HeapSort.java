@@ -18,7 +18,6 @@ package org.brutusin.algorithms.sorting;
 import java.util.Arrays;
 import org.brutusin.algorithms.utils.Utils;
 import org.brutusin.datastructures.Heap;
-import static org.brutusin.datastructures.Heap.getParent;
 
 /**
  * Swaps elements to the right until there are no more swaps
