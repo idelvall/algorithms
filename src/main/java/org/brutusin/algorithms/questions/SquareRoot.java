@@ -21,6 +21,14 @@ package org.brutusin.algorithms.questions;
  */
 public class SquareRoot {
 
+    /**
+     * Computes the square root using the bisection method
+     * (https://en.wikipedia.org/wiki/Bisection_method)
+     *
+     * @param d
+     * @param maxError
+     * @return
+     */
     public static double sqrt(final double d, double maxError) {
         double a = 0;
         double b = d;
