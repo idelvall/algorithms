@@ -29,12 +29,13 @@ public class SquareRoot {
      * @param maxError
      * @return
      */
-    public static double sqrt(final double d, double maxError) {
+    public static double sqrtBisection(final double d, double maxError) {
         double a = 0;
         double b = d;
         if (b < 1) {
             b = 1;
         }
+        int step = 1;
         while (true) {
             double sqrt = (a + b) / 2;
             double da = sqrt * sqrt;
@@ -45,10 +46,33 @@ public class SquareRoot {
             } else {
                 return sqrt;
             }
+            System.out.println(step++);
+        }
+    }
+
+    /**
+     * Usues a linear taylor aproximation to compute the next probe position
+     *
+     * @param d
+     * @param maxError
+     * @return
+     */
+    public static double sqrtVariableStep(final double d, double maxError) {
+        double x = 1;
+        int step = 1;
+        while (true) {
+            double f = x * x;
+            if (f < d - maxError || f > d + maxError) {
+                x = (d - f) / (2 * x) + x;
+            } else {
+                return x;
+            }
+            System.out.println(step++);
         }
     }
 
     public static void main(String[] args) {
-        System.out.println(sqrt(0.5, 0.001));
+        System.out.println(sqrtBisection(0.5, 0.001));
+        System.out.println(sqrtVariableStep(0.5, 0.001));
     }
 }
