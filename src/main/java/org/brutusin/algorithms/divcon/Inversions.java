@@ -38,9 +38,7 @@ public class Inversions {
             aux = temp;
         }
         if (a != array) {
-            for (int i = 0; i < array.length; i++) {
-                array[i] = a[i];
-            }
+            System.arraycopy(a, 0, array, 0, array.length);
         }
         return ret;
     }

@@ -66,4 +66,14 @@ public class Utils {
         Utils.swap(array, start, j);
         return j;
     }
+
+    public static void printArray(Object array) {
+        if (!array.getClass().isArray()) {
+            throw new IllegalArgumentException("Object is not an array");
+        }
+        for (int i = 0; i < Array.getLength(array); i++) {
+            System.out.print(Array.get(array, i));
+        }
+        System.out.println();
+    }
 }
