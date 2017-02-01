@@ -21,7 +21,7 @@ import org.brutusin.algorithms.utils.Utils;
  *
  * @author Ignacio del Valle Alles idelvall@brutusin.org
  * http://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
- */
+ */ 
 public class PermutationTree {
     
     public static void permute(char[] c) {

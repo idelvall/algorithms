@@ -22,11 +22,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -462,7 +459,7 @@ public class Problem3 {
         }
 
         public int compareTo(Path o) {
-            int ret = -1 * Integer.compare(coverage, o.coverage);
+            int ret = -1 * Integer.compare(path.length(), o.path.length());
             if (ret == 0) {
                 ret = Integer.compare(instanceId, o.instanceId);
             }
@@ -618,6 +615,32 @@ public class Problem3 {
         for (int i = 0; i < n; i++) {
             cdna[i] = br.readLine();
         }
+        Set<Integer> exclude = new HashSet<Integer>();
+        for (int i = 0; i < cdna.length - 1; i++) {
+            for (int j = i + 1; j < cdna.length; j++) {
+                String min, max;
+                int index;
+                if (cdna[i].length() < cdna[j].length()) {
+                    index = i;
+                    min = cdna[i];
+                    max = cdna[j];
+                } else {
+                    index = j;
+                    min = cdna[j];
+                    max = cdna[i];
+                }
+                if (max.indexOf(min) > 0) {
+                    exclude.add(index);
+                }
+            }
+        }
+        String[] reads = new String[cdna.length - exclude.size()];
+        int j = 0;
+        for (int i = 0; i < cdna.length; i++) {
+            if (!exclude.contains(i)) {
+                reads[j++] = cdna[i];
+            }
+        }
 
 //        String ref = "CAAGGAATCGAGGATAGGCTGTGTCCGTCCATGAGGCCTTTTTCGGTACGGTCTTGATTACTTTTTTC";
 //        String[] cdna = new String[]{
@@ -626,8 +649,8 @@ public class Problem3 {
 //            "TACTTTTTT",
 //            "GGCTGGGCCTTTTCT",
 //            "GCCTTTTCTTG"};
-        List<Path> paths = assemble(ref, cdna, 100);
-        System.out.println(validate(ref, cdna, paths));
+        List<Path> paths = assemble(ref, reads, 100);
+        System.out.println(validate(ref, reads, paths));
 
     }
 }
