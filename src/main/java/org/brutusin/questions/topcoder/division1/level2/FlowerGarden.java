@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.brutusin.questions.topcoder.division1.level1;
+package org.brutusin.questions.topcoder.division1.level2;
 
 import java.util.Arrays;
 import java.util.Comparator;
