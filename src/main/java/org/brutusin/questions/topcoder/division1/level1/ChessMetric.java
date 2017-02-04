@@ -21,7 +21,7 @@ package org.brutusin.questions.topcoder.division1.level1;
  */
 public class ChessMetric {
 
-    private static int[][] MOVES = new int[][]{
+    private static final int[][] MOVES = new int[][]{
         {-2, -1}, {-2, 1},
         {-1, -2}, {-1, -1}, {-1, 0}, {-1, 1}, {-1, 2},
         {0, -1}, {0, 1},
